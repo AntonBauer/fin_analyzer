@@ -1,0 +1,6 @@
+@FinAnalyzer.Api_HostAddress = http://localhost:5155
+
+GET {{FinAnalyzer.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

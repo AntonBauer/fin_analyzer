@@ -4,5 +4,5 @@ namespace FinAnalyzer.IngData;
 
 public interface IIngDataParser
 {
-    Task<Transaction[]> ParseTransactions(Stream transactionsFileStream);
+    Task<Transaction[]> ParseTransactions(Stream transactionsFileStream, CancellationToken cancellationToken);
 }

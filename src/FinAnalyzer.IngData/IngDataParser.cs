@@ -25,7 +25,8 @@ internal sealed class IngDataParser : IIngDataParser
 
     private (string AccountInfoRaw, string TransactionsRaw) SplitData(string rawText)
     {
-        return (string.Empty, string.Empty);
+        var splitted = rawText.Split("\n\n");
+        return (splitted[1], splitted[^1]);
     }
 
     private Transaction[] ParseTransactions(string transactionsRaw)

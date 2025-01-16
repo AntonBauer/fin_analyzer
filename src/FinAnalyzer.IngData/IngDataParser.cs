@@ -16,28 +16,30 @@ internal sealed class IngDataParser : IIngDataParser
         return ParseTransactions(splitted.TransactionsRaw);
     }
 
-    private async Task<string> ReadText(Stream transactionsFileStream,
+    private static async Task<string> ReadText(Stream transactionsFileStream,
                                         CancellationToken cancellationToken)
     {
         using var reader = new StreamReader(transactionsFileStream);
         return await reader.ReadToEndAsync(cancellationToken);
     }
 
-    private (string AccountInfoRaw, string TransactionsRaw) SplitData(string rawText)
+    private static (string AccountInfoRaw, string TransactionsRaw) SplitData(string rawText)
     {
         var splitted = rawText.Split("\n\n");
         return (splitted[1], splitted[^1]);
     }
 
-    private Transaction[] ParseTransactions(string transactionsRaw)
+    private static Transaction[] ParseTransactions(string transactionsRaw)
     {
-        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        var culture = CultureInfo.CreateSpecificCulture("de-DE");
+        var config = new CsvConfiguration(culture)
         {
             Delimiter = ";",
         };
 
         using var reader = new StringReader(transactionsRaw);
         using var csv = new CsvReader(reader, config);
+        csv.Context.RegisterClassMap<TransactionsMapping>();
 
         return csv.GetRecords<Transaction>().ToArray();
     }

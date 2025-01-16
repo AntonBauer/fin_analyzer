@@ -5,5 +5,6 @@ namespace FinAnalyzer.IngData;
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddIngData(this IServiceCollection services) =>
-        services.AddTransient<IIngDataParser, IngDataParser>();
+        services.AddTransient<IIngDataParser, IngDataParser>()
+                .AddTransient<TransactionsParser>();
 }

@@ -10,7 +10,7 @@ internal sealed class IngDataParser(TransactionsParser transactionsParser) : IIn
         var text = await ReadText(transactionsFileStream, cancellationToken);
         var splitted = SplitData(text);
 
-        var transactions = await transactionsParser.ParseTransactions(splitted.TransactionsRaw, cancellationToken);
+        var transactions = await transactionsParser.ParseTransactions(splitted.TransactionsRaw);
         // ToDo: Add Account info parser
 
         return transactions;

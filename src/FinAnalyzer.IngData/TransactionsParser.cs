@@ -7,8 +7,7 @@ namespace FinAnalyzer.IngData;
 
 internal sealed class TransactionsParser
 {
-    public async Task<Transaction[]> ParseTransactions(string transactionsData,
-                                                       CancellationToken cancellationToken)
+    public async Task<Transaction[]> ParseTransactions(string transactionsData)
     {
         using var csv = CreateReader(transactionsData);
         await csv.ReadAsync();

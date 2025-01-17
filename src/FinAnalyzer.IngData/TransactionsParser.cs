@@ -21,7 +21,7 @@ internal sealed class TransactionsParser
             transactions.Add(transaction);
         }
 
-        return transactions.ToArray();
+        return [.. transactions];
     }
 
     private static CsvReader CreateReader(string transactionsData)

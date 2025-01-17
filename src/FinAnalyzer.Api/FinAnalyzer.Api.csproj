@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FinAnalyzer.Domain\FinAnalyzer.Domain.csproj" />
     <ProjectReference Include="..\FinAnalyzer.IngData\FinAnalyzer.IngData.csproj" />
+    <ProjectReference Include="..\FinAnalyzer.DataAccess\FinAnalyser.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

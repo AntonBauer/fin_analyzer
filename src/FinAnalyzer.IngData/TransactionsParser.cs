@@ -7,13 +7,13 @@ namespace FinAnalyzer.IngData;
 
 internal sealed class TransactionsParser
 {
-    public async Task<Transaction[]> ParseTransactions(string transactionsData)
+    public async Task<RawTransaction[]> ParseTransactions(string transactionsData)
     {
         using var csv = CreateReader(transactionsData);
         await csv.ReadAsync();
         csv.ReadHeader();
 
-        var transactions = new List<Transaction>();
+        var transactions = new List<RawTransaction>();
 
         while (await csv.ReadAsync())
         {
@@ -36,7 +36,7 @@ internal sealed class TransactionsParser
         return new CsvReader(reader, config);
     }
 
-    private static Transaction ReadTransaction(CsvReader csv)
+    private static RawTransaction ReadTransaction(CsvReader csv)
     {
         var booking = csv.GetField<DateOnly>(0);
         var valueDate = csv.GetField<DateOnly>(1);
@@ -44,6 +44,7 @@ internal sealed class TransactionsParser
         var bookingText = csv.GetField<string>(3);
         var purpose = csv.GetField<string>(4);
 
+        // ToDo: parse currency code
         var balanceAmount = csv.GetField<decimal>(5);
         var balanceCurrency = csv.GetField<string>(6);
         var balance = new Currency(balanceAmount, CurrencyName.Euro);
@@ -52,8 +53,9 @@ internal sealed class TransactionsParser
         var amountCurrency = csv.GetField<string>(8);
         var tmp = new Currency(amount, CurrencyName.Euro);
 
-        return new Transaction
+        return new RawTransaction
         {
+            Id = Guid.NewGuid(),
             Booking = booking,
             ValueDate = valueDate,
             PayerOrPayee = payerOrPayee ?? string.Empty,

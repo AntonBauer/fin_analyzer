@@ -1,3 +1,4 @@
+using FinAnalyser.DataAccess;
 using FinAnalyzer.Api.UseCases;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,7 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-builder.Services.AddUseCasesServices();
+builder.Services.AddDataAccess(builder.Configuration)
+                .AddUseCasesServices();
 
 var app = builder.Build();
 

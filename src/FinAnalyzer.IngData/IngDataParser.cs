@@ -4,7 +4,7 @@ namespace FinAnalyzer.IngData;
 
 internal sealed class IngDataParser(TransactionsParser transactionsParser) : IIngDataParser
 {
-    public async Task<Transaction[]> ParseTransactions(Stream transactionsFileStream,
+    public async Task<RawTransaction[]> ParseTransactions(Stream transactionsFileStream,
                                                        CancellationToken cancellationToken)
     {
         var text = await ReadText(transactionsFileStream, cancellationToken);

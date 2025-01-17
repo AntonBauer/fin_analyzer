@@ -1,7 +1,8 @@
 namespace FinAnalyzer.Domain.Models;
 
-public record Transaction
+public record RawTransaction
 {
+    public required Guid Id { get; init; }
     public required DateOnly Booking { get; init; }
     public required DateOnly ValueDate { get; init; }
     public required string PayerOrPayee { get; init; }

@@ -16,4 +16,7 @@
     <ProjectReference Include="..\FinAnalyzer.DataAccess\FinAnalyser.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="FinAnalyzer.Tests.Integration" />
+  </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinAnalyser.DataAccess;
 
-internal sealed class FinAnalyzerContext : DbContext
+internal sealed class FinAnalyzerContext(DbContextOptions<FinAnalyzerContext> options) : DbContext(options)
 {
     public DbSet<RawTransaction> RawTransactions => Set<RawTransaction>();
 

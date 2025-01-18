@@ -9,7 +9,6 @@ internal sealed class TransactionsTests : IntegrationTestBase
         // Arrange
 
         // Act
-        await Task.Delay(2000);
 
         // Assert
         Assert.Fail();
@@ -21,7 +20,6 @@ internal sealed class TransactionsTests : IntegrationTestBase
         // Arrange
 
         // Act
-        await Task.Delay(3000);
 
         // Assert
         Assert.Fail();

@@ -1,0 +1,19 @@
+Umsatzanzeige;Datei erstellt am: 16.01.2025 13:52
+
+IBAN;DE11 1111 2222 3333 4444 55
+Kontoname;Main account
+Bank;ING
+Kunde;Test Customer
+Zeitraum;16.12.2024 - 16.01.2025
+Saldo;1.367,16;EUR
+
+Sortierung;Datum absteigend
+
+In der CSV-Datei finden Sie alle bereits gebuchten Umsätze. Die vorgemerkten Umsätze werden nicht aufgenommen, auch wenn sie in Ihrem Internetbanking angezeigt werden.
+
+Buchung;Valuta;Auftraggeber/Empfänger;Buchungstext;Verwendungszweck;Saldo;Währung;Betrag;Währung
+13.01.2025;13.01.2025;KAUFLAND;Lastschrift;Kaufland Karlsruhe//Karlsruhe/DE 20 25-01-10T17:13:16 Folgenr.001 Verfa lld.2027-12;1.367,16;EUR;-58,67;EUR
+13.01.2025;13.01.2025;DM DROGERIEMARKT SAGT DANKE;Lastschrift;DM Drogerie/Schillerstrase 1/Ettlin gen/DE 2025-01-11T11:25:57 Folgenr. 001 Verfalld.2027-12;1.425,83;EUR;-2,43;EUR
+10.01.2025;10.01.2025;VISA BFT AM HIT-MARKT;Lastschrift;NR XXXX 9010 KARLSRUHE DE KAUFUMSATZ 06.01 79.90 083734 ARN74396045008090000800495;1.428,26;EUR;-79,90;EUR
+10.01.2025;10.01.2025;VISA AMZN MKTP DE*JA9MK9XC5;Lastschrift;NR XXXX 9010 800-279-662 LU KAUFUMSATZ 08.01 74.76 202822 ARN74279815008109652693939;1.508,16;EUR;-74,76;EUR
+09.01.2025;09.01.2025;VISA PAYPAL *ZALANDOSE;Lastschrift;NR XXXX 9010 35314369001 DE KAUFUMSATZ 05.01 50.00 113041 ARN74244695007500237111711;1.582,92;EUR;-50,00;EUR

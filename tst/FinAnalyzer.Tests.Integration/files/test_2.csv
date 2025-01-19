@@ -1,0 +1,19 @@
+Umsatzanzeige;Datei erstellt am: 16.01.2025 14:52
+
+IBAN;DE11 1111 2222 3333 4444 55
+Kontoname;Main account
+Bank;ING
+Kunde;Test Customer
+Zeitraum;16.12.2024 - 16.01.2025
+Saldo;1.183,64;EUR
+
+Sortierung;Datum absteigend
+
+In der CSV-Datei finden Sie alle bereits gebuchten Umsätze. Die vorgemerkten Umsätze werden nicht aufgenommen, auch wenn sie in Ihrem Internetbanking angezeigt werden.
+
+Buchung;Valuta;Auftraggeber/Empfänger;Buchungstext;Verwendungszweck;Saldo;Währung;Betrag;Währung
+16.01.2025;16.01.2025;VISA BADISCHE BACKSTUB FO;Lastschrift;NR XXXX 9010 RHEINSTETTE DE KAUFUMSATZ 14.01 4.60 102831 ARN74830725014312101563431;1.183,64;EUR;-4,60;EUR
+15.01.2025;15.01.2025;Lastschrift aus Kartenzahlung;Lastschrift;MOeVENPICK Zoo Karlsruhe//Karlsruhe /DE 2025-01-14T10:20:54 Folgenr.001 Verfalld.2027-12;1.188,24;EUR;-2,50;EUR
+15.01.2025;15.01.2025;Lastschrift aus Kartenzahlung;Lastschrift;KARLSRUHER MESSE- UND KONGR//Karlsr uhe/DE 2025-01-14T10:34:21 Folgenr. 001 Verfalld.2027-12;1.190,74;EUR;-4,00;EUR
+15.01.2025;15.01.2025;VISA PAYPAL *DM DROGERIE;Lastschrift;NR XXXX 9010 72155924187 DE KAUFUMSATZ 11.01 172.30 193413 ARN74244695013501599601317;1.194,74;EUR;-172,30;EUR
+15.01.2025;02.01.2025;;Wertpapierkauf;Zins/Dividende ISIN DE000A0KEXM6 SIEMENS B;1.367,04;EUR;-0,12;EUR

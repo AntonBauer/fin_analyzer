@@ -26,4 +26,9 @@
     <ProjectReference Include="..\..\src\FinAnalyzer.Api\FinAnalyzer.Api.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="$(ProjectDir)/files/test_1.csv" CopyToOutputDirectory="Always" />
+    <None Include="$(ProjectDir)/files/test_2.csv" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+
 </Project>

@@ -7,21 +7,21 @@ namespace FinAnalyzer.IngData;
 
 internal sealed class TransactionsParser
 {
-    public async Task<RawTransaction[]> ParseTransactions(string transactionsData)
+    public async Task<Transaction[]> ParseTransactions(string transactionsData)
     {
         using var csv = CreateReader(transactionsData);
         await csv.ReadAsync();
         csv.ReadHeader();
 
-        var transactions = new List<RawTransaction>();
+        var rawTransactions = new List<RawTransaction>();
 
         while (await csv.ReadAsync())
         {
             var transaction = ReadTransaction(csv);
-            transactions.Add(transaction);
+            rawTransactions.Add(transaction);
         }
 
-        return [.. transactions];
+        return [.. rawTransactions.Select(raw => new Transaction { Id = Guid.NewGuid(), RawTransaction = raw })];
     }
 
     private static CsvReader CreateReader(string transactionsData)

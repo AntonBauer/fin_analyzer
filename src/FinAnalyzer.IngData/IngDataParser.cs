@@ -1,23 +1,23 @@
-﻿using FinAnalyzer.Domain.Models;
+﻿using FinAnalyzer.IngData.Models;
 
 namespace FinAnalyzer.IngData;
 
-internal sealed class IngDataParser(TransactionsParser transactionsParser) : IIngDataParser
+internal sealed class IngDataParser(TransactionsParser transactionsParser,
+                                    AccountInfoParser accountInfoParser) : IIngDataParser
 {
-    public async Task<RawTransaction[]> ParseTransactions(Stream transactionsFileStream,
+    public async Task<TransactionsData> ParseTransactions(Stream transactionsFileStream,
                                                        CancellationToken cancellationToken)
     {
-        var text = await ReadText(transactionsFileStream, cancellationToken);
-        var splitted = SplitData(text);
+        var rawData = SplitData(await ReadText(transactionsFileStream, cancellationToken));
 
-        var transactions = await transactionsParser.ParseTransactions(splitted.TransactionsRaw);
-        // ToDo: Add Account info parser
+        var accountInfo = accountInfoParser.ParseAccountInfo(rawData.AccountInfoRaw);
+        var transactions = await transactionsParser.ParseTransactions(rawData.TransactionsRaw);
 
-        return transactions;
+        return new(accountInfo, transactions);
     }
 
     private static async Task<string> ReadText(Stream transactionsFileStream,
-                                        CancellationToken cancellationToken)
+                                               CancellationToken cancellationToken)
     {
         using var reader = new StreamReader(transactionsFileStream);
         return await reader.ReadToEndAsync(cancellationToken);

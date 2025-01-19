@@ -6,5 +6,6 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddIngData(this IServiceCollection services) =>
         services.AddTransient<IIngDataParser, IngDataParser>()
-                .AddTransient<TransactionsParser>();
+                .AddTransient<TransactionsParser>()
+                .AddTransient<AccountInfoParser>();
 }

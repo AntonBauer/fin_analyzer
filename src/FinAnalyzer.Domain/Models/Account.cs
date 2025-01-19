@@ -4,4 +4,5 @@ public sealed class Account
 {
     public required Guid Id { get; init; }
     public required AccountInfo Info { get; init; }
+    public Transaction[] Transactions { get; init; } = [];
 }

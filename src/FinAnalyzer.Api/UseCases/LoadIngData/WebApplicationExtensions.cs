@@ -1,4 +1,4 @@
-using FinAnalyser.DataAccess.RawTransactions;
+using FinAnalyser.DataAccess.AccountServices;
 using FinAnalyzer.IngData;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,15 +9,18 @@ public static class WebApplicationExtensions
     public static WebApplication AddLoadIngDataEndpoints(this WebApplication app)
     {
         app.MapPost("/load-ing-data", async ([FromServices] IIngDataParser dataParser,
-                                             [FromServices] IRawTransactionsRepository rawTransactionsRepository,
+                                             [FromServices] IAccountService accountService,
                                              IFormFile transactionsFile,
                                              CancellationToken cancellationToken) =>
         {
-            var transactions = await dataParser.ParseTransactions(transactionsFile.OpenReadStream(),
-                                                                  cancellationToken);
-            await rawTransactionsRepository.Save(transactions, cancellationToken);
+            var transactionsData = await dataParser.ParseTransactions(transactionsFile.OpenReadStream(),
+                                                                      cancellationToken);
 
-            return Results.Ok(transactions);
+            await accountService.SaveTransactions(transactionsData.AccountInfo,
+                                                  transactionsData.Transactions,
+                                                  cancellationToken);
+
+            return Results.Ok();
         })
         .DisableAntiforgery();
 

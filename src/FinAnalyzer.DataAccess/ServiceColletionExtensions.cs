@@ -1,4 +1,4 @@
-using FinAnalyser.DataAccess.RawTransactions;
+using FinAnalyser.DataAccess.AccountServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,11 +11,11 @@ public static class ServiceColletionExtensions
     {
         services.AddDbContext<FinAnalyzerContext>(options => options.UseNpgsql(configuration.GetConnectionString("FinAnalyze"))
                                                                     .UseSnakeCaseNamingConvention())
-                .AddRepositories();
+                .AddServices();
 
         return services;
     }
 
-    private static IServiceCollection AddRepositories(this IServiceCollection services) =>
-        services.AddTransient<IRawTransactionsRepository, RawTransactionsRepository>();
+    private static IServiceCollection AddServices(this IServiceCollection services) =>
+        services.AddTransient<IAccountService, AccountService>();
 }

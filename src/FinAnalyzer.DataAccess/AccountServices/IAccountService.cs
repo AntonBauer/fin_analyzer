@@ -4,5 +4,6 @@ namespace FinAnalyser.DataAccess.AccountServices;
 
 public interface IAccountService
 {
-    Task<Guid> SaveTransactions(AccountInfo accountInfo, Transaction[] transactions, CancellationToken cancellationToken);
+    Task<Account> ReadAccount(Guid accountId, CancellationToken cancellationToken);
+    Task<Guid> UploadTransactions(AccountInfo accountInfo, Transaction[] transactions, CancellationToken cancellationToken);
 }

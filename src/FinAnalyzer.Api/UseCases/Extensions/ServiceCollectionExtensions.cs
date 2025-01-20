@@ -1,6 +1,6 @@
 using FinAnalyzer.IngData;
 
-namespace FinAnalyzer.Api.UseCases;
+namespace FinAnalyzer.Api.UseCases.Extensions;
 
 public static class ServiceCollectionExtensions
 {

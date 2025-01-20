@@ -2,9 +2,9 @@ using FinAnalyser.DataAccess.AccountServices;
 using FinAnalyzer.IngData;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FinAnalyzer.Api.UseCases.UploadIngData;
+namespace FinAnalyzer.Api.UseCases;
 
-public static class UploadIngDataEndpoints
+internal static class UploadData
 {
     public static WebApplication AddLoadIngDataEndpoints(this WebApplication app)
     {
@@ -16,7 +16,7 @@ public static class UploadIngDataEndpoints
             var transactionsData = await dataParser.ParseTransactions(transactionsFile.OpenReadStream(),
                                                                       cancellationToken);
 
-            var accountId = await accountService.SaveTransactions(transactionsData.AccountInfo,
+            var accountId = await accountService.UploadTransactions(transactionsData.AccountInfo,
                                                                   transactionsData.Transactions,
                                                                   cancellationToken);
 

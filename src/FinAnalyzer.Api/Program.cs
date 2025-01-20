@@ -1,5 +1,5 @@
 using FinAnalyser.DataAccess;
-using FinAnalyzer.Api.UseCases;
+using FinAnalyzer.Api.UseCases.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

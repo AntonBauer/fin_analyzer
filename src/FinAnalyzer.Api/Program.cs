@@ -3,7 +3,6 @@ using FinAnalyzer.Api.UseCases;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddDataAccess(builder.Configuration)
@@ -20,6 +19,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.AddUseCasesEndpoints();
 
+await app.ApplyMigrations();
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)

@@ -3,10 +3,10 @@
 namespace FinAnalyzer.Tests.Integration;
 
 [TestFixture]
-internal sealed class TransactionsTests : IntegrationTestBase
+internal sealed class AccountTests : IntegrationTestBase
 {
     [Test, Order(0)]
-    public async Task Should_load_ing_data()
+    public async Task Should_upload_ing_data()
     {
         // Arrange
         var content = await CreateContent("files/test_1.csv", "transactionsFile");
@@ -20,7 +20,7 @@ internal sealed class TransactionsTests : IntegrationTestBase
     }
 
     [Test, Order(1)]
-    public async Task Should_read_transactions()
+    public async Task Should_read_account_info()
     {
         // Arrange
 

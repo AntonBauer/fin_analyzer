@@ -5,7 +5,8 @@ public static class WebApplicationExtensions
     public static WebApplication AddUseCasesEndpoints(this WebApplication app)
     {
         app.AddLoadIngDataEndpoints()
-           .AddReadAccountEndpoints();
+           .AddReadAccountEndpoints()
+           .AddReadAccountTransactionsEndpoints();
 
         return app;
     }

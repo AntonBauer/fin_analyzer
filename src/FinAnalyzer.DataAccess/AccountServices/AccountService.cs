@@ -1,20 +1,32 @@
 using FinAnalyzer.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinAnalyser.DataAccess.AccountServices;
 
 internal sealed class AccountService(FinAnalyzerContext context) : IAccountService
 {
-    public async Task SaveTransactions(AccountInfo accountInfo,
-                                       Transaction[] transactions,
-                                       CancellationToken cancellationToken)
+    public async Task<Guid> SaveTransactions(AccountInfo accountInfo,
+                                             Transaction[] transactions,
+                                             CancellationToken cancellationToken)
     {
-        // Check if there is account
+        var account = await context.Accounts
+                                   .Where(account => account.Info.Iban == accountInfo.Iban)
+                                   .FirstOrDefaultAsync(cancellationToken);
 
-        // Use existing or create new
+        if (account is null)
+        {
+            account = new Account
+            {
+                Id = Guid.NewGuid(),
+                Info = accountInfo
+            };
 
-        // Add Transactions to this account
+            await context.Accounts.AddAsync(account, cancellationToken);
+        }
+
+        account.AddTransactions(transactions);
 
         await context.SaveChangesAsync(cancellationToken);
-        throw new NotImplementedException();
+        return account.Id;
     }
 }

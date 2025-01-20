@@ -5,7 +5,7 @@ namespace FinAnalyser.DataAccess;
 
 internal sealed class FinAnalyzerContext(DbContextOptions<FinAnalyzerContext> options) : DbContext(options)
 {
-    public DbSet<Transaction> Transactions => Set<Transaction>();
+    public DbSet<Account> Accounts => Set<Account>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

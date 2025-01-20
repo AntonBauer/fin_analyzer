@@ -9,7 +9,7 @@ public static class ServiceColletionExtensions
 {
     public static IServiceCollection AddDataAccess(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<FinAnalyzerContext>(options => options.UseNpgsql(configuration.GetConnectionString("FinAnalyze"))
+        services.AddDbContext<FinAnalyzerContext>(options => options.UseNpgsql(configuration.GetConnectionString("FinAnalyzer"))
                                                                     .UseSnakeCaseNamingConvention())
                 .AddServices();
 

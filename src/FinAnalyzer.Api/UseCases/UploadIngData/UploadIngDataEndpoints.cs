@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FinAnalyzer.Api.UseCases.UploadIngData;
 
-public static class WebApplicationExtensions
+public static class UploadIngDataEndpoints
 {
     public static WebApplication AddLoadIngDataEndpoints(this WebApplication app)
     {
@@ -16,11 +16,11 @@ public static class WebApplicationExtensions
             var transactionsData = await dataParser.ParseTransactions(transactionsFile.OpenReadStream(),
                                                                       cancellationToken);
 
-            await accountService.SaveTransactions(transactionsData.AccountInfo,
-                                                  transactionsData.Transactions,
-                                                  cancellationToken);
+            var accountId = await accountService.SaveTransactions(transactionsData.AccountInfo,
+                                                                  transactionsData.Transactions,
+                                                                  cancellationToken);
 
-            return Results.Ok();
+            return Results.Created($"/accounts/{accountId}", accountId);
         })
         .DisableAntiforgery();
 

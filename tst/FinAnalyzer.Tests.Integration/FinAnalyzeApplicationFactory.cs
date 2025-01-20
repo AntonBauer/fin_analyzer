@@ -19,7 +19,12 @@ internal sealed class FinAnalyzeApplicationFactory : IAsyncDisposable
 
     public HttpClient CreateClient() => _appFactory.CreateClient();
 
-    public async ValueTask DisposeAsync() => await _postgres.DisposeAsync();
+    public async ValueTask DisposeAsync()
+    {
+        await _postgres.DisposeAsync();
+        await _appFactory.DisposeAsync();
+    }
+
 
     private sealed class InternalFactory : WebApplicationFactory<Program>
     {

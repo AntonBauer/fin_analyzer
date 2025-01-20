@@ -1,4 +1,4 @@
-using FinAnalyzer.Api.UseCases.LoadIngData;
+using FinAnalyzer.Api.UseCases.UploadIngData;
 
 namespace FinAnalyzer.Api.UseCases;
 

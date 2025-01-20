@@ -12,7 +12,7 @@ internal sealed class TransactionsTests : IntegrationTestBase
         var content = await CreateContent("files/test_1.csv", "transactionsFile");
 
         // Act
-        var response = await Client.PostAsync("/load-ing-data", content);
+        var response = await Client.PostAsync("/upload-ing-data", content);
         var raw = await response.Content.ReadAsStringAsync();
 
         // Assert

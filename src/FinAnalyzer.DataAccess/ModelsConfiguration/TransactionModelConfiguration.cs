@@ -2,14 +2,16 @@ using FinAnalyzer.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-internal sealed class TransactionModelConfiguration : IEntityTypeConfiguration<RawTransaction>
+namespace FinAnalyser.DataAccess.ModelsConfiguration;
+
+internal sealed class TransactionModelConfiguration : IEntityTypeConfiguration<Transaction>
 {
-    public void Configure(EntityTypeBuilder<RawTransaction> builder)
+    public void Configure(EntityTypeBuilder<Transaction> builder)
     {
-        builder.ToTable("raw_transactions");
+        builder.ToTable("transactions");
         builder.HasKey(transaction => transaction.Id);
 
-        builder.OwnsOne(transaction => transaction.Balance);
-        builder.OwnsOne(transaction => transaction.Amount);
+        builder.HasOne(transaction => transaction.RawTransaction)
+               .WithMany();
     }
 }

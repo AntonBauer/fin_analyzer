@@ -8,10 +8,10 @@ internal sealed class IngDataParser(TransactionsParser transactionsParser,
     public async Task<TransactionsData> ParseTransactions(Stream transactionsFileStream,
                                                        CancellationToken cancellationToken)
     {
-        var rawData = SplitData(await ReadText(transactionsFileStream, cancellationToken));
+        var (AccountInfoRaw, TransactionsRaw) = SplitData(await ReadText(transactionsFileStream, cancellationToken));
 
-        var accountInfo = accountInfoParser.ParseAccountInfo(rawData.AccountInfoRaw);
-        var transactions = await transactionsParser.ParseTransactions(rawData.TransactionsRaw);
+        var accountInfo = accountInfoParser.ParseAccountInfo(AccountInfoRaw);
+        var transactions = await transactionsParser.ParseTransactions(TransactionsRaw);
 
         return new(accountInfo, transactions);
     }
@@ -25,7 +25,7 @@ internal sealed class IngDataParser(TransactionsParser transactionsParser,
 
     private static (string AccountInfoRaw, string TransactionsRaw) SplitData(string rawText)
     {
-        var splitted = rawText.Split("\n\n");
+        var splitted = rawText.Replace("\r\n", "\n").Split("\n\n");
         return (splitted[1], splitted[^1]);
     }
 }

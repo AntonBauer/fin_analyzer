@@ -13,6 +13,7 @@ internal sealed class TransactionsTests : IntegrationTestBase
 
         // Act
         var response = await Client.PostAsync("/load-ing-data", content);
+        var raw = await response.Content.ReadAsStringAsync();
 
         // Assert
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
@@ -33,9 +34,9 @@ internal sealed class TransactionsTests : IntegrationTestBase
     {
         var data = await File.ReadAllBytesAsync(filePath);
 
-        return new MultipartFormDataContent
-        {
-            { new ByteArrayContent(data), name }
-        };
+        var content = new MultipartFormDataContent();
+        content.Add(new ByteArrayContent(data), name, name);
+
+        return content;
     }
 }

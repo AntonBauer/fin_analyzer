@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using FinAnalyzer.Api.Dtos;
 using FinAnalyzer.Domain.Models;
 
 namespace FinAnalyzer.Tests.Integration;
@@ -8,6 +9,8 @@ namespace FinAnalyzer.Tests.Integration;
 internal sealed class AccountTests : IntegrationTestBase
 {
     private string? _accountLocation;
+    private string? _categoryLocation;
+    private Guid? _transactionId;
 
     [Test, Order(0)]
     public async Task Should_upload_ing_data()
@@ -71,6 +74,92 @@ internal sealed class AccountTests : IntegrationTestBase
         {
             Assert.That(transactions, Is.Not.Null);
             Assert.That(transactions, Has.Length.EqualTo(10));
+        });
+    }
+
+    [Test, Order(4)]
+    public async Task Should_create_category()
+    {
+        // Act
+        var response = await Client.PostAsJsonAsync("/categories", new CreateCategoryDto { Name = "Test category" });
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
+            Assert.That(response.Headers.Location, Is.Not.Null);
+        });
+
+        _categoryLocation = response.Headers.Location.ToString();
+    }
+
+    [Test, Order(5)]
+    public async Task Should_read_all_categories()
+    {
+        // Act
+        var categories = await Client.GetFromJsonAsync<Category[]>("/categories");
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(categories, Is.Not.Null);
+            Assert.That(categories, Has.Length.EqualTo(1));
+        });
+    }
+
+    [Test, Order(6)]
+    public async Task Should_delete_category()
+    {
+        // Act
+        await Client.DeleteAsync(_categoryLocation);
+        var categories = await Client.GetFromJsonAsync<Category[]>("/categories");
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(categories, Is.Not.Null);
+            Assert.That(categories, Is.Empty);
+        });
+    }
+
+    [Test, Order(7)]
+    public async Task Should_assign_category()
+    {
+        // Arrange
+        var createCategoryResponse = await Client.PostAsJsonAsync("/categories", new CreateCategoryDto { Name = "Test assign" });
+        var categoryId = uint.Parse(await createCategoryResponse.Content.ReadAsStringAsync());
+
+        var transactions = await Client.GetFromJsonAsync<Transaction[]>($"{_accountLocation}/transactions");
+        _transactionId = transactions.First().Id;
+
+        // Act
+        var assignCategoryResponse = await Client.PutAsync($"{_accountLocation}/transactions/{_transactionId}/categories/{categoryId}/assign", null);
+
+        var newTransactions = await Client.GetFromJsonAsync<Transaction[]>($"{_accountLocation}/transactions");
+        var transaction = newTransactions.First(t => t.Id == _transactionId);
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(transaction, Is.Not.Null);
+            Assert.That(transaction.Cathegory.Name, Is.EqualTo("Test assign"));
+        });
+    }
+
+    [Test, Order(8)]
+    public async Task Should_remove_category()
+    {
+        // Act
+        var assignCategoryResponse = await Client.DeleteAsync($"{_accountLocation}/transactions/{_transactionId}/categories/");
+
+        var transactions = await Client.GetFromJsonAsync<Transaction[]>($"{_accountLocation}/transactions");
+        var transaction = transactions.First(t => t.Id == _transactionId);
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(transaction, Is.Not.Null);
+            Assert.That(transaction.Cathegory, Is.Null);
         });
     }
 

@@ -14,4 +14,32 @@ internal sealed class TransactionsService(FinAnalyzerContext context) : ITransac
 
         return [.. account.Transactions];
     }
+
+    public async Task<Transaction> AssignCategory(Guid acocuntId, Guid transactionId, uint categoryId, CancellationToken cancellationToken)
+    {
+        var account = await context.Accounts
+                                   .Include(account => account.Transactions.Where(transaction => transaction.Id == transactionId))
+                                   .FirstOrDefaultAsync(account => account.Id == acocuntId, cancellationToken);
+
+        var category = await context.Categories.FindAsync([categoryId], cancellationToken);
+
+        var transaction = account.Transactions.Single();
+        transaction.Cathegory = category;
+
+        await context.SaveChangesAsync(cancellationToken);
+        return transaction;
+    }
+
+    public async Task<Transaction> RemoveCategory(Guid acocuntId, Guid transactionId, CancellationToken cancellationToken)
+    {
+        var account = await context.Accounts
+                                   .Include(account => account.Transactions.Where(transaction => transaction.Id == transactionId))
+                                   .FirstOrDefaultAsync(account => account.Id == acocuntId, cancellationToken);
+
+        var transaction = account.Transactions.Single();
+        transaction.Cathegory = null;
+
+        await context.SaveChangesAsync(cancellationToken);
+        return transaction;
+    }
 }

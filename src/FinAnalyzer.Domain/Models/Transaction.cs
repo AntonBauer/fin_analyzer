@@ -4,5 +4,5 @@ public sealed class Transaction
 {
     public required Guid Id { get; init; }
     public required RawTransaction RawTransaction { get; init; }
-    public Category? Cathegory { get; init; }
+    public Category? Cathegory { get; set; }
 }

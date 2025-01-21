@@ -38,27 +38,40 @@ internal sealed class AccountTests : IntegrationTestBase
         Assert.Multiple(() =>
         {
             Assert.That(account, Is.Not.Null);
-            Assert.That(account!.Transactions, Has.Count.EqualTo(5));
+            Assert.That(account.Info.Name, Is.EqualTo("Main account"));
         });
     }
 
     [Test, Order(2)]
-    public async Task Should_append_transactions()
+    public async Task Should_read_trasactions()
     {
-
-        // Arrange
-        var content = await CreateContent("files/test_1.csv", "transactionsFile");
-
         // Act
-        var response = await Client.PostAsync("/upload-ing-data", content);
-        var account = await Client.GetFromJsonAsync<Account>(_accountLocation);
+        var transactions = await Client.GetFromJsonAsync<Transaction[]>($"{_accountLocation}/transactions");
 
         // Assert
         Assert.Multiple(() =>
         {
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
-            Assert.That(account, Is.Not.Null);
-            Assert.That(account!.Transactions, Has.Count.EqualTo(10));
+            Assert.That(transactions, Is.Not.Null);
+            Assert.That(transactions, Has.Length.EqualTo(5));
+        });
+    }
+
+    [Test, Order(3)]
+    public async Task Should_append_transactions()
+    {
+
+        // Arrange
+        var content = await CreateContent("files/test_2.csv", "transactionsFile");
+
+        // Act
+        await Client.PostAsync("/upload-ing-data", content);
+        var transactions = await Client.GetFromJsonAsync<Transaction[]>($"{_accountLocation}/transactions");
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(transactions, Is.Not.Null);
+            Assert.That(transactions, Has.Length.EqualTo(10));
         });
     }
 

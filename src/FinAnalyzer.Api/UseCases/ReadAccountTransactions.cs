@@ -1,4 +1,4 @@
-using FinAnalyser.DataAccess.AccountServices;
+using FinAnalyser.DataAccess.TransactionsServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinAnalyzer.Api.UseCases;
@@ -10,11 +10,11 @@ internal static class ReadAccountTransactions
         app.MapGet("/accounts/{accountId:guid}/transactions", async ([FromRoute] Guid accountId,
                                                                      [FromQuery] DateOnly? from,
                                                                      [FromQuery] DateOnly? to,
-                                                                     [FromServices] IAccountService accountService,
+                                                                     [FromServices] ITransactionsService transactionsService,
                                                                      CancellationToken cancellationToken) =>
         {
-            var account = await accountService.ReadAccount(accountId, cancellationToken);
-            return Results.Ok(account);
+            var transactions = await transactionsService.GetTransactions(accountId, from, to, cancellationToken);
+            return Results.Ok(transactions);
         });
 
         return app;

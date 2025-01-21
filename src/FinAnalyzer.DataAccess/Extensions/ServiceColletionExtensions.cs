@@ -1,9 +1,10 @@
 using FinAnalyser.DataAccess.AccountServices;
+using FinAnalyser.DataAccess.TransactionsServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FinAnalyser.DataAccess;
+namespace FinAnalyser.DataAccess.Extensions;
 
 public static class ServiceColletionExtensions
 {
@@ -17,5 +18,6 @@ public static class ServiceColletionExtensions
     }
 
     private static IServiceCollection AddServices(this IServiceCollection services) =>
-        services.AddTransient<IAccountService, AccountService>();
+        services.AddTransient<IAccountService, AccountService>()
+                .AddTransient<ITransactionsService, TransactionsService>();
 }

@@ -1,4 +1,4 @@
-using FinAnalyser.DataAccess;
+using FinAnalyser.DataAccess.Extensions;
 using FinAnalyzer.Api.UseCases.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

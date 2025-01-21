@@ -7,11 +7,8 @@ internal sealed class AccountService(FinAnalyzerContext context) : IAccountServi
 {
     public async Task<Account> ReadAccount(Guid accountId,
                                            CancellationToken cancellationToken) =>
-        // ToDo: add transactions from-to dates filter
         await context.Accounts
                      .AsNoTracking()
-                     .Include(account => account.Transactions)
-                     .ThenInclude(transaciton => transaciton.RawTransaction)
                      .FirstOrDefaultAsync(account => account.Id == accountId, cancellationToken);
 
     public async Task<Guid> UploadTransactions(AccountInfo accountInfo,

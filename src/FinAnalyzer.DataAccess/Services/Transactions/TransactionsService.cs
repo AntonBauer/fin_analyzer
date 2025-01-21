@@ -1,7 +1,7 @@
 using FinAnalyzer.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace FinAnalyser.DataAccess.TransactionsServices;
+namespace FinAnalyser.DataAccess.Services.Transactions;
 
 internal sealed class TransactionsService(FinAnalyzerContext context) : ITransactionsService
 {

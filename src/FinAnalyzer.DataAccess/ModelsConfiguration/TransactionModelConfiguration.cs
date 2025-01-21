@@ -14,6 +14,10 @@ internal sealed class TransactionModelConfiguration : IEntityTypeConfiguration<T
         builder.HasOne(transaction => transaction.RawTransaction)
                .WithMany();
 
+        builder.HasOne(transaction => transaction.Cathegory)
+               .WithMany();
+
         builder.Navigation(transaction => transaction.RawTransaction).AutoInclude();
+        builder.Navigation(transaction => transaction.Cathegory).AutoInclude();
     }
 }

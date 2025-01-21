@@ -1,6 +1,6 @@
 using FinAnalyzer.Domain.Models;
 
-namespace FinAnalyser.DataAccess.TransactionsServices;
+namespace FinAnalyser.DataAccess.Services.Transactions;
 
 public interface ITransactionsService
 {

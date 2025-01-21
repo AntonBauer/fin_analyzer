@@ -1,6 +1,6 @@
 using FinAnalyzer.Domain.Models;
 
-namespace FinAnalyser.DataAccess.AccountServices;
+namespace FinAnalyser.DataAccess.Services.Accounts;
 
 public interface IAccountService
 {

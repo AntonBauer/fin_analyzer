@@ -1,0 +1,58 @@
+using FinAnalyser.DataAccess.Services.Categories;
+using FinAnalyzer.Api.Dtos;
+using Microsoft.AspNetCore.Mvc;
+
+namespace FinAnalyzer.Api.UseCases;
+
+internal static class CategoriesCrud
+{
+    public static WebApplication AddCategoriesCrud(this WebApplication app)
+    {
+        app.AddCreate()
+           .AddRead()
+           .AddUpdate()
+           .AddDelete();
+
+        return app;
+    }
+
+    private static WebApplication AddCreate(this WebApplication app)
+    {
+        app.MapPost("/categories", async ([FromBody] CreateCategoryDto dto,
+                                          [FromServices] ICategoryService categoryService,
+                                          CancellationToken cancellationToken) =>
+        {
+            var categoryId = await categoryService.Create(dto.Name, cancellationToken);
+            return Results.Created($"/categories/{categoryId}", categoryId);
+        }).DisableAntiforgery();
+
+        return app;
+    }
+
+    private static WebApplication AddRead(this WebApplication app)
+    {
+        app.MapGet("/categories", async ([FromServices] ICategoryService categoryService,
+                                         CancellationToken cancellationToken) =>
+        {
+            var categories = await categoryService.ReadAll(cancellationToken);
+            return Results.Ok(categories);
+        });
+
+        return app;
+    }
+
+    private static WebApplication AddUpdate(this WebApplication app) => app;
+
+    private static WebApplication AddDelete(this WebApplication app)
+    {
+        app.MapDelete("/categories/{categoryId:int:min(1):required}", async ([FromRoute] uint categoryId,
+                                                                             [FromServices] ICategoryService categoryService,
+                                                                             CancellationToken cancellationToken) =>
+        {
+            await categoryService.Delete(categoryId, cancellationToken);
+            return Results.Ok();
+        });
+
+        return app;
+    }
+}

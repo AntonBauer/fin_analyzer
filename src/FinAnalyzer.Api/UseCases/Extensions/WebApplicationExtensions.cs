@@ -6,7 +6,8 @@ public static class WebApplicationExtensions
     {
         app.AddLoadIngDataEndpoints()
            .AddReadAccountEndpoints()
-           .AddReadAccountTransactionsEndpoints();
+           .AddReadAccountTransactionsEndpoints()
+           .AddCategoriesCrud();
 
         return app;
     }

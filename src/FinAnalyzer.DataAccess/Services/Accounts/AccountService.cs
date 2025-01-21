@@ -1,7 +1,7 @@
 using FinAnalyzer.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace FinAnalyser.DataAccess.AccountServices;
+namespace FinAnalyser.DataAccess.Services.Accounts;
 
 internal sealed class AccountService(FinAnalyzerContext context) : IAccountService
 {

@@ -1,4 +1,4 @@
-using FinAnalyser.DataAccess.AccountServices;
+using FinAnalyser.DataAccess.Services.Accounts;
 using FinAnalyzer.IngData;
 using Microsoft.AspNetCore.Mvc;
 

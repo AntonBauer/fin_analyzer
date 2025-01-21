@@ -6,7 +6,7 @@ namespace FinAnalyzer.Api.UseCases;
 
 internal static class CategoriesCrud
 {
-    public static WebApplication AddCategoriesCrud(this WebApplication app)
+    public static WebApplication AddCategoriesCrudEndpoints(this WebApplication app)
     {
         app.AddCreate()
            .AddRead()

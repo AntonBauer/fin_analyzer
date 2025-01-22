@@ -5,10 +5,10 @@ namespace FinAnalyzer.Domain.Rules;
 
 public sealed class RegexRule : IRule
 {
+    public required uint Id { get; init; }
+    public required string Name { get; init; }
     public required Regex Expression { get; init; }
-
     public required TransactionProperty PropertyToCheck { get; init; }
-
     public required Category SuggestedCategory { get; init; }
 
     public Suggestion? ApplyTo(Transaction transaction)

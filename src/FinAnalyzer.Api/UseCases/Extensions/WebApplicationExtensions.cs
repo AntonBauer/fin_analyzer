@@ -8,7 +8,8 @@ public static class WebApplicationExtensions
            .AddReadAccountEndpoints()
            .AddReadAccountTransactionsEndpoints()
            .AddCategoriesCrudEndpoints()
-           .AddAssignCategoryEndpoints();
+           .AddAssignCategoryEndpoints()
+           .AddRulesCrudEndpoints();
 
         return app;
     }

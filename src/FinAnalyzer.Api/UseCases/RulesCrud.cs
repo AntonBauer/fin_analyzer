@@ -22,7 +22,10 @@ internal static class RulesCrud
                                      [FromServices] IRulesService ruleService,
                                      CancellationToken cancellationToken) =>
         {
-            var ruleId = await ruleService.Create(dto, cancellationToken);
+            var ruleId = await ruleService.Create(dto.PropertyToCheck,
+                                                  dto.Expression,
+                                                  dto.SuggestedCategoryId,
+                                                  cancellationToken);
             return Results.Created($"/rules/{ruleId}", ruleId);
         }).DisableAntiforgery();
 

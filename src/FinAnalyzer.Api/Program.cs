@@ -1,3 +1,4 @@
+using System.Reflection;
 using FinAnalyser.DataAccess.Extensions;
 using FinAnalyzer.Api.UseCases.Extensions;
 
@@ -18,10 +19,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.AddUseCasesEndpoints();
 
-await app.ApplyMigrations();
+if (!IsOpenApiGenerator())
+    await app.ApplyMigrations();
+
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+static bool IsOpenApiGenerator() =>
+    Assembly.GetEntryAssembly()?.GetName().Name == "GetDocument.Insider";

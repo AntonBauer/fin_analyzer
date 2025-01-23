@@ -15,7 +15,7 @@ internal static class Rules
 
     private static WebApplication ApplyRule(this WebApplication app)
     {
-        app.MapPost("/rules/{ruleId:int:min(1):required}",
+        app.MapPost("/rules/{ruleId:int:min(1):required}/apply",
                     async ([FromRoute] uint ruleId,
                            [FromServices] IRulesService rulesService,
                            CancellationToken cancellationToken) =>
@@ -39,7 +39,7 @@ internal static class Rules
 
     private static WebApplication ApplySuggestion(this WebApplication app)
     {
-        app.MapPost("/suggestions/{suggestionId:guid:required}",
+        app.MapPost("/suggestions/{suggestionId:guid:required}/apply",
                     async ([FromRoute] uint suggestionId,
                            [FromServices] ISuggestionsService suggestionsService,
                            CancellationToken cancellationToken) =>

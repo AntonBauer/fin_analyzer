@@ -1,21 +1,44 @@
+using System.Text.RegularExpressions;
 using FinAnalyzer.Domain.Rules;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinAnalyser.DataAccess.Services.Rules;
 
-internal sealed class RulesService : IRulesService
+internal sealed class RulesService(FinAnalyzerContext context) : IRulesService
 {
-    public Task<uint> Create(TransactionProperty propertyToCheck, string expression, uint suggestedCategoryId, CancellationToken cancellationToken)
+    public async Task<uint> Create(string name,
+                                   TransactionProperty propertyToCheck,
+                                   string expression,
+                                   uint suggestedCategoryId,
+                                   CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var category = await context.Categories.FindAsync([suggestedCategoryId], cancellationToken);
+        var rule = new RegexRule
+        {
+            Id = 0,
+            Name = name,
+            PropertyToCheck = propertyToCheck,
+            Expression = new Regex(expression),
+            SuggestedCategory = category
+        };
+
+        var entry = await context.RegexRules.AddAsync(rule, cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
+
+        return entry.Entity.Id;
     }
 
-    public Task Delete(uint ruleId, CancellationToken cancellationToken)
+    public async Task Delete(uint ruleId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var rule = await context.RegexRules.FindAsync([ruleId], cancellationToken);
+        if (rule is null) return;
+
+        context.RegexRules.Remove(rule);
+        await context.SaveChangesAsync(cancellationToken);
     }
 
-    public Task<RegexRule[]> ReadAll(CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<RegexRule[]> ReadAll(CancellationToken cancellationToken) =>
+        await context.RegexRules
+                     .AsNoTracking()
+                     .ToArrayAsync(cancellationToken);
 }

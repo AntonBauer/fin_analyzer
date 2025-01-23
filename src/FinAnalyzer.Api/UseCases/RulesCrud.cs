@@ -18,11 +18,12 @@ internal static class RulesCrud
 
     private static WebApplication AddCreate(this WebApplication app)
     {
-        app.MapPost("/rules", async ([FromBody] CreateRuleDto dto,
+        app.MapPost("/rules", async ([FromBody] CreateRegexRuleDto dto,
                                      [FromServices] IRulesService ruleService,
                                      CancellationToken cancellationToken) =>
         {
-            var ruleId = await ruleService.Create(dto.PropertyToCheck,
+            var ruleId = await ruleService.Create(dto.Name,
+                                                  dto.PropertyToCheck,
                                                   dto.Expression,
                                                   dto.SuggestedCategoryId,
                                                   cancellationToken);

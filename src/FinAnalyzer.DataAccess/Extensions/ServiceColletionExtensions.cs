@@ -1,6 +1,7 @@
 using FinAnalyser.DataAccess.Services.Accounts;
 using FinAnalyser.DataAccess.Services.Categories;
 using FinAnalyser.DataAccess.Services.Rules;
+using FinAnalyser.DataAccess.Services.Suggestions;
 using FinAnalyser.DataAccess.Services.Transactions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -24,5 +25,6 @@ public static class ServiceColletionExtensions
         services.AddTransient<IAccountService, AccountService>()
                 .AddTransient<ITransactionsService, TransactionsService>()
                 .AddTransient<ICategoryService, CategoryService>()
-                .AddTransient<IRulesService, RulesService>();
+                .AddTransient<IRulesService, RulesService>()
+                .AddTransient<ISuggestionsService, SuggestionsService>();
 }

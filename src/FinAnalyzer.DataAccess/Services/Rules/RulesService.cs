@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using FinAnalyzer.Domain.Models;
 using FinAnalyzer.Domain.Rules;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,4 +42,23 @@ internal sealed class RulesService(FinAnalyzerContext context) : IRulesService
         await context.RegexRules
                      .AsNoTracking()
                      .ToArrayAsync(cancellationToken);
+
+    public async Task<Suggestion[]> Apply(uint ruleId, CancellationToken cancellationToken)
+    {
+        var rule = await context.RegexRules.FindAsync([ruleId], cancellationToken);
+        var transactions = await context.Transactions
+                                        .AsNoTracking()
+                                        .Where(transaction => transaction.Cathegory == null)
+                                        .ToArrayAsync(cancellationToken);
+
+        var suggestions = transactions.Select(transaction => rule.ApplyTo(transaction))
+                                      .Where(suggestion => suggestion is not null)
+                                      .OfType<Suggestion>()
+                                      .ToArray();
+
+        await context.Suggesions.AddRangeAsync(suggestions, cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
+
+        return suggestions;
+    }
 }

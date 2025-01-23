@@ -1,5 +1,6 @@
 using FinAnalyser.DataAccess.Services.Accounts;
 using FinAnalyser.DataAccess.Services.Categories;
+using FinAnalyser.DataAccess.Services.Rules;
 using FinAnalyser.DataAccess.Services.Transactions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +10,8 @@ namespace FinAnalyser.DataAccess.Extensions;
 
 public static class ServiceColletionExtensions
 {
-    public static IServiceCollection AddDataAccess(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddDataAccess(this IServiceCollection services,
+                                                   IConfiguration configuration)
     {
         services.AddDbContext<FinAnalyzerContext>(options => options.UseNpgsql(configuration.GetConnectionString("FinAnalyzer"))
                                                                     .UseSnakeCaseNamingConvention())
@@ -21,5 +23,6 @@ public static class ServiceColletionExtensions
     private static IServiceCollection AddServices(this IServiceCollection services) =>
         services.AddTransient<IAccountService, AccountService>()
                 .AddTransient<ITransactionsService, TransactionsService>()
-                .AddTransient<ICategoryService, CategoryService>();
+                .AddTransient<ICategoryService, CategoryService>()
+                .AddTransient<IRulesService, RulesService>();
 }

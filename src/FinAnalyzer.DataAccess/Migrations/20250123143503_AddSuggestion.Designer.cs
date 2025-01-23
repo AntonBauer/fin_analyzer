@@ -3,6 +3,7 @@ using System;
 using FinAnalyser.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FinAnalyser.DataAccess.Migrations
 {
     [DbContext(typeof(FinAnalyzerContext))]
-    partial class FinAnalyzerContextModelSnapshot : ModelSnapshot
+    [Migration("20250123143503_AddSuggestion")]
+    partial class AddSuggestion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

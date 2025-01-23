@@ -36,6 +36,20 @@ internal sealed class RulesTests : IntegrationTestBase
         });
     }
 
+    [Test, Order(1)]
+    public async Task Should_read_all_rules()
+    {
+        // Act
+        var rules = await Client.GetFromJsonAsync<RegexRule[]>("/rules");
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(rules.Length, Is.EqualTo(1));
+            Assert.That(rules[0].Name, Is.EqualTo("Test rule"));
+        });
+    }
+    
     private async Task UploadTransactions()
     {
         var data = await File.ReadAllBytesAsync("files/test_1.csv");

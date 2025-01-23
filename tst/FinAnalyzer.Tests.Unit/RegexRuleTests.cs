@@ -46,6 +46,8 @@ internal sealed partial class RegexRuleTests
 
         var rule = new RegexRule
         {
+            Id = 1,
+            Name = "Test rule",
             PropertyToCheck = TransactionProperty.BookingText,
             Expression = TestRegex(),
             SuggestedCategory = expectedCategory

@@ -282,7 +282,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/rules/{ruleId}/apply": {
       "post": {
         "tags": [
           "FinAnalyzer.Api"
@@ -318,7 +320,7 @@
         }
       }
     },
-    "/suggestions/{suggestionId}": {
+    "/suggestions/{suggestionId}/apply": {
       "post": {
         "tags": [
           "FinAnalyzer.Api"

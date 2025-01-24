@@ -1,5 +1,5 @@
 using FinAnalyser.DataAccess.Services.Categories;
-using FinAnalyzer.Api.Dtos;
+using FinAnalyzer.Api.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinAnalyzer.Api.UseCases;
@@ -18,7 +18,7 @@ internal static class CategoriesCrud
 
     private static WebApplication AddCreate(this WebApplication app)
     {
-        app.MapPost("/categories", async ([FromBody] CreateCategoryDto dto,
+        app.MapPost("/categories", async ([FromBody] CreateCategoryRequest dto,
                                           [FromServices] ICategoryService categoryService,
                                           CancellationToken cancellationToken) =>
         {

@@ -7,7 +7,7 @@ internal class IntegrationTestBase
     protected HttpClient Client;
 
     [OneTimeSetUp]
-    public async Task SetUp()
+    public async Task BaseSetUp()
     {
         _appFactory = new FinAnalyzeApplicationFactory();
         await _appFactory.Initialize();
@@ -16,7 +16,7 @@ internal class IntegrationTestBase
     }
 
     [OneTimeTearDown]
-    public async Task TearDown()
+    public async Task BaseTearDown()
     {
         Client.Dispose();
         await _appFactory.DisposeAsync();

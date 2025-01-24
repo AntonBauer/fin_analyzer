@@ -40,7 +40,7 @@ internal static class Rules
     private static WebApplication ApplySuggestion(this WebApplication app)
     {
         app.MapPost("/suggestions/{suggestionId:guid:required}/apply",
-                    async ([FromRoute] uint suggestionId,
+                    async ([FromRoute] Guid suggestionId,
                            [FromServices] ISuggestionsService suggestionsService,
                            CancellationToken cancellationToken) =>
                     {

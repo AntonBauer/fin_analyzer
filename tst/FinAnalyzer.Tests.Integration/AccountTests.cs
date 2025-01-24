@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
-using FinAnalyzer.Api.Dtos;
+using FinAnalyzer.Api.Requests;
 using FinAnalyzer.Domain.Models;
 
 namespace FinAnalyzer.Tests.Integration;
@@ -81,7 +81,7 @@ internal sealed class AccountTests : IntegrationTestBase
     public async Task Should_create_category()
     {
         // Act
-        var response = await Client.PostAsJsonAsync("/categories", new CreateCategoryDto { Name = "Test category" });
+        var response = await Client.PostAsJsonAsync("/categories", new CreateCategoryRequest { Name = "Test category" });
 
         // Assert
         Assert.Multiple(() =>
@@ -126,7 +126,7 @@ internal sealed class AccountTests : IntegrationTestBase
     public async Task Should_assign_category()
     {
         // Arrange
-        var createCategoryResponse = await Client.PostAsJsonAsync("/categories", new CreateCategoryDto { Name = "Test assign" });
+        var createCategoryResponse = await Client.PostAsJsonAsync("/categories", new CreateCategoryRequest { Name = "Test assign" });
         var categoryId = uint.Parse(await createCategoryResponse.Content.ReadAsStringAsync());
 
         var transactions = await Client.GetFromJsonAsync<Transaction[]>($"{_accountLocation}/transactions");

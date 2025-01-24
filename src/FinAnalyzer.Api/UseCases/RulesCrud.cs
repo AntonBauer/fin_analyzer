@@ -1,5 +1,5 @@
 using FinAnalyser.DataAccess.Services.Rules;
-using FinAnalyzer.Api.Dtos;
+using FinAnalyzer.Api.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinAnalyzer.Api.UseCases;
@@ -18,7 +18,7 @@ internal static class RulesCrud
 
     private static WebApplication AddCreate(this WebApplication app)
     {
-        app.MapPost("/rules", async ([FromBody] CreateRegexRuleDto dto,
+        app.MapPost("/rules", async ([FromBody] CreateRegexRuleRequest dto,
                                      [FromServices] IRulesService ruleService,
                                      CancellationToken cancellationToken) =>
         {
@@ -39,7 +39,9 @@ internal static class RulesCrud
                                     CancellationToken cancellationToken) =>
         {
             var rules = await rulesService.ReadAll(cancellationToken);
-            return Results.Ok(rules);
+            var dtos = rules.Select(x => new RegexRuleDto(x)).ToArray();
+
+            return Results.Ok(dtos);
         });
 
         return app;

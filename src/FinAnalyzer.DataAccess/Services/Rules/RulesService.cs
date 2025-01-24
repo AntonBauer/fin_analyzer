@@ -47,7 +47,6 @@ internal sealed class RulesService(FinAnalyzerContext context) : IRulesService
     {
         var rule = await context.RegexRules.FindAsync([ruleId], cancellationToken);
         var transactions = await context.Transactions
-                                        .AsNoTracking()
                                         .Where(transaction => transaction.Cathegory == null)
                                         .ToArrayAsync(cancellationToken);
 

@@ -20,6 +20,14 @@ internal sealed class RulesTests : IntegrationTestBase
         _testCategory = await CreateCategory();
     }
 
+    [OneTimeTearDown]
+    public void TearDown()
+    {
+        _testCategory = null;
+        _testRule = null;
+        _suggestions = null;
+    }
+
     [Test, Order(0)]
     public async Task Should_create_rule()
     {

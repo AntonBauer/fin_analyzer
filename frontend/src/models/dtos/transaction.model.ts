@@ -1,5 +1,5 @@
-import { Category } from "./category";
-import { RawTransaction } from "./raw-transaction";
+import { Category } from "./category.model";
+import { RawTransaction } from "./raw-transaction.model";
 
 
 export interface Transaction {

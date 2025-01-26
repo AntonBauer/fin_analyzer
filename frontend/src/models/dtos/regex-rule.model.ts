@@ -1,5 +1,5 @@
 import { TransactionProperty } from "../enums/transaction-property.enum";
-import { Category } from "./category";
+import { Category } from "./category.model";
 
 export interface RegexRule {
     id: number; // uint is represented as number in TypeScript

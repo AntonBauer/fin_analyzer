@@ -1,4 +1,4 @@
-import { Currency } from "./currency";
+import { Currency } from "./currency.model";
 
 export interface RawTransaction {
     id: string;

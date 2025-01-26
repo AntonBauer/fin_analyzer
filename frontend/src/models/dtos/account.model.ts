@@ -1,5 +1,5 @@
-import { AccountInfo } from "./account-info";
-import { Transaction } from "./transaction";
+import { AccountInfo } from "./account-info.model";
+import { Transaction } from "./transaction.model";
 
 
 export interface Account {

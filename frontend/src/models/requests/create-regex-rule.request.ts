@@ -1,6 +1,4 @@
-export const enum TransactionProperty {
-    // Define enum values if known
-}
+import { TransactionProperty } from "../enums/transaction-property.enum";
 
 export interface CreateRegexRuleRequest {
     name: string;

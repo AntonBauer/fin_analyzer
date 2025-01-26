@@ -1,3 +1,4 @@
+import { Category } from "./category";
 import { RawTransaction } from "./raw-transaction";
 
 

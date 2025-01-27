@@ -8,12 +8,42 @@
 # database or a cache. For examples, see the Awesome Compose repository:
 # https://github.com/docker/awesome-compose
 services:
+  db:
+    image: postgres
+    restart: always
+    user: postgres
+    volumes:
+      - fin-analyze-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=finanalyzer
+      - POSTGRES_PASSWORD=1pass!
+    expose:
+      - 5432
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   server:
+    depends_on:
+      db:
+        condition: service_healthy
     build:
-      context: ..
+      context: "../backend"
       target: final
     ports:
       - 80:8080
+
+  client:
+    depends_on: 
+      - server
+    build:
+      context: "../frontend"
+      target: final
+
+volumes:
+  fin-analyze-data:
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
@@ -24,26 +54,6 @@ services:
 #     depends_on:
 #       db:
 #         condition: service_healthy
-#   db:
-#     image: postgres
-#     restart: always
-#     user: postgres
-#     secrets:
-#       - db-password
-#     volumes:
-#       - db-data:/var/lib/postgresql/data
-#     environment:
-#       - POSTGRES_DB=example
-#       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-#     expose:
-#       - 5432
-#     healthcheck:
-#       test: [ "CMD", "pg_isready" ]
-#       interval: 10s
-#       timeout: 5s
-#       retries: 5
-# volumes:
-#   db-data:
 # secrets:
 #   db-password:
 #     file: db/password.txt

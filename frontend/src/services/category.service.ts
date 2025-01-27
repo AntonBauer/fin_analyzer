@@ -2,7 +2,7 @@ import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { EnvironmentService } from "./environment.service";
 import { HttpClient } from "@angular/common/http";
-import { CreateCategoryRequest } from "../models";
+import { CreateCategoryRequest, Transaction } from "../models";
 
 @Injectable({
     providedIn: 'root',
@@ -11,19 +11,19 @@ export class CategoryService {
     readonly #http = inject(HttpClient);
     readonly #environmentService = inject(EnvironmentService);
 
-    createCategory(request: CreateCategoryRequest): Observable<any> {
-        return this.#http.post(`${this.#environmentService.getEnvironment().apiUrl}/categories`, request);
+    createCategory(request: CreateCategoryRequest): Observable<number> {
+        return this.#http.post<number>(`${this.#environmentService.getEnvironment().apiUrl}/categories`, request);
     }
 
     deleteCategory(categoryId: number): Observable<any> {
         return this.#http.delete(`${this.#environmentService.getEnvironment().apiUrl}/categories/${categoryId}`);
     }
 
-    assignCategory(accountId: string, transactionId: string, categoryId: number): Observable<any> {
-        return this.#http.put(`${this.#environmentService.getEnvironment().apiUrl}/accounts/${accountId}/transactions/${transactionId}/categories/${categoryId}/assign`, {});
+    assignCategory(accountId: string, transactionId: string, categoryId: number): Observable<Transaction> {
+        return this.#http.put<Transaction>(`${this.#environmentService.getEnvironment().apiUrl}/accounts/${accountId}/transactions/${transactionId}/categories/${categoryId}/assign`, {});
     }
 
-    removeCategory(accountId: string, transactionId: string): Observable<any> {
-        return this.#http.delete(`${this.#environmentService.getEnvironment().apiUrl}/accounts/${accountId}/transactions/${transactionId}/categories`);
+    removeCategory(accountId: string, transactionId: string): Observable<Transaction> {
+        return this.#http.delete<Transaction>(`${this.#environmentService.getEnvironment().apiUrl}/accounts/${accountId}/transactions/${transactionId}/categories`);
     }
 }

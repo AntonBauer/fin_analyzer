@@ -31,7 +31,15 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "uint32"
+                }
+              }
+            }
           }
         }
       }
@@ -54,7 +62,36 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts": {
+      "get": {
+        "tags": [
+          "FinAnalyzer.Api"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Account"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -93,7 +130,17 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Transaction2"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -115,7 +162,15 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "uint32"
+                }
+              }
+            }
           }
         }
       },
@@ -125,7 +180,17 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Category2"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -191,7 +256,14 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
           }
         }
       }
@@ -223,7 +295,14 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
           }
         }
       }
@@ -245,7 +324,15 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "uint32"
+                }
+              }
+            }
           }
         }
       },
@@ -255,7 +342,17 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RegexRuleDto"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -303,7 +400,17 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Suggestion"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -315,7 +422,17 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Suggestion"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -346,6 +463,80 @@
   },
   "components": {
     "schemas": {
+      "Account": {
+        "required": [
+          "id",
+          "info"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "info": {
+            "$ref": "#/components/schemas/AccountInfo"
+          },
+          "transactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Transaction"
+            }
+          }
+        }
+      },
+      "AccountInfo": {
+        "required": [
+          "iban",
+          "name",
+          "accountHolder"
+        ],
+        "type": "object",
+        "properties": {
+          "iban": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "accountHolder": {
+            "type": "string"
+          }
+        }
+      },
+      "Category": {
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "uint32"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "nullable": true
+      },
+      "Category2": {
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "uint32"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
       "CreateCategoryRequest": {
         "type": "object",
         "properties": {
@@ -372,7 +563,185 @@
           }
         }
       },
+      "Currency": {
+        "required": [
+          "amount",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "name": {
+            "$ref": "#/components/schemas/CurrencyName"
+          }
+        },
+        "nullable": true
+      },
+      "Currency2": {
+        "required": [
+          "amount",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "name": {
+            "$ref": "#/components/schemas/CurrencyName"
+          }
+        }
+      },
+      "CurrencyName": {
+        "type": "integer"
+      },
+      "IsolationLevel": {
+        "type": "integer"
+      },
+      "RawTransaction": {
+        "required": [
+          "id",
+          "booking",
+          "valueDate",
+          "payerOrPayee",
+          "bookingText",
+          "purpose",
+          "amount"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "booking": {
+            "type": "string",
+            "format": "date"
+          },
+          "valueDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "payerOrPayee": {
+            "type": "string"
+          },
+          "bookingText": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "balance": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "amount": {
+            "$ref": "#/components/schemas/Currency2"
+          }
+        }
+      },
+      "RegexRuleDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "uint32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "expression": {
+            "type": "string"
+          },
+          "propertyToChec": {
+            "$ref": "#/components/schemas/TransactionProperty"
+          },
+          "suggestedCatogory": {
+            "$ref": "#/components/schemas/Category2"
+          }
+        }
+      },
+      "Suggestion": {
+        "required": [
+          "id",
+          "transaction"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "transaction": {
+            "$ref": "#/components/schemas/Transaction"
+          },
+          "suggestedCategory": {
+            "$ref": "#/components/schemas/Category"
+          }
+        }
+      },
+      "Transaction": {
+        "required": [
+          "id",
+          "rawTransaction"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "rawTransaction": {
+            "$ref": "#/components/schemas/RawTransaction"
+          },
+          "cathegory": {
+            "$ref": "#/components/schemas/Category"
+          }
+        }
+      },
+      "Transaction2": {
+        "type": "object",
+        "properties": {
+          "transactionInformation": {
+            "$ref": "#/components/schemas/TransactionInformation"
+          },
+          "isolationLevel": {
+            "$ref": "#/components/schemas/IsolationLevel"
+          },
+          "promoterType": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "TransactionInformation": {
+        "type": "object",
+        "properties": {
+          "localIdentifier": {
+            "type": "string",
+            "nullable": true
+          },
+          "distributedIdentifier": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "creationTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TransactionStatus"
+          }
+        },
+        "nullable": true
+      },
       "TransactionProperty": {
+        "type": "integer"
+      },
+      "TransactionStatus": {
         "type": "integer"
       }
     }

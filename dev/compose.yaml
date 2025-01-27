@@ -5,9 +5,10 @@ services:
     volumes:
       - fin-analyze-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=1pass!
-    expose:
-      - 5432
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=fin_analyzer
+    ports:
+      - 5432:5432
     healthcheck:
       test: [ "CMD", "pg_isready" ]
       interval: 30s

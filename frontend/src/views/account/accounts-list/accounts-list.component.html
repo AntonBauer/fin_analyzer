@@ -8,7 +8,11 @@
 <table mat-table [dataSource]="accounts">
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let account"> {{account.info.name}} </td>
+        <td mat-cell *matCellDef="let account">
+            <a routerLink="/account/{{account.id}}">
+                {{account.info.name}}
+            </a>
+        </td>
     </ng-container>
 
     <ng-container matColumnDef="accountHolder">

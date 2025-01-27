@@ -5,11 +5,16 @@ namespace FinAnalyser.DataAccess.Services.Accounts;
 
 internal sealed class AccountService(FinAnalyzerContext context) : IAccountService
 {
+    public async Task<Account[]> ReadAll(CancellationToken cancellationToken) =>
+        await context.Accounts.AsNoTracking().ToArrayAsync(cancellationToken);
+
     public async Task<Account> ReadAccount(Guid accountId,
                                            CancellationToken cancellationToken) =>
         await context.Accounts
+                     .Include(account => account.Transactions)
                      .AsNoTracking()
                      .FirstOrDefaultAsync(account => account.Id == accountId, cancellationToken);
+
 
     public async Task<Guid> UploadTransactions(AccountInfo accountInfo,
                                                Transaction[] transactions,

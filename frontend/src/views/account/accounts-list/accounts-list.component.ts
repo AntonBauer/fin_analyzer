@@ -3,11 +3,15 @@ import { AccountService } from '../../../services';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { MatTableModule } from '@angular/material/table';
 import { Account, AccountInfo } from '../../../models';
+import { RouterLink } from '@angular/router';
 
 type AccountListColumns = keyof Account | keyof AccountInfo;
 
 @Component({
-  imports: [MatTableModule],
+  imports: [
+    MatTableModule,
+    RouterLink
+  ],
   templateUrl: './accounts-list.component.html',
   styleUrl: './accounts-list.component.scss'
 })

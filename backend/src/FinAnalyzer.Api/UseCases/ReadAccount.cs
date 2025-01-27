@@ -8,6 +8,14 @@ internal static class ReadAccount
 {
     public static WebApplication AddReadAccountEndpoints(this WebApplication app)
     {
+        app.ReadSingle()
+           .AddReadAll();
+
+        return app;
+    }
+
+    private static WebApplication ReadSingle(this WebApplication app)
+    {
         app.MapGet("/accounts/{accountId:guid:required}", async ([FromRoute] Guid accountId,
                                                                  [FromServices] IAccountService accountService,
                                                                  CancellationToken cancellationToken) =>
@@ -17,6 +25,19 @@ internal static class ReadAccount
         })
         .Produces<Account>();
 
+        return app;
+    }
+
+
+    private static WebApplication AddReadAll(this WebApplication app)
+    {
+        app.MapGet("/accounts", async ([FromServices] IAccountService accountService,
+                                        CancellationToken cancellationToken) =>
+        {
+            var accounts = await accountService.ReadAll(cancellationToken);
+            return Results.Ok(accounts);
+        })
+        .Produces<Account[]>();
         return app;
     }
 }

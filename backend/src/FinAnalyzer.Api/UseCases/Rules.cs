@@ -1,5 +1,6 @@
 using FinAnalyser.DataAccess.Services.Rules;
 using FinAnalyser.DataAccess.Services.Suggestions;
+using FinAnalyzer.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinAnalyzer.Api.UseCases;
@@ -22,7 +23,9 @@ internal static class Rules
                     {
                         var suggestions = await rulesService.Apply(ruleId, cancellationToken);
                         return Results.Created("/suggestions", suggestions);
-                    }).DisableAntiforgery();
+                    })
+           .DisableAntiforgery()
+           .Produces<Suggestion[]>();
         return app;
     }
 
@@ -33,7 +36,8 @@ internal static class Rules
         {
             var suggestions = await suggestionsService.ReadAll(cancellationToken);
             return Results.Ok(suggestions);
-        });
+        })
+        .Produces<Suggestion[]>();
         return app;
     }
 

@@ -28,7 +28,8 @@ internal static class RulesCrud
                                                   dto.SuggestedCategoryId,
                                                   cancellationToken);
             return Results.Created($"/rules/{ruleId}", ruleId);
-        }).DisableAntiforgery();
+        }).DisableAntiforgery()
+          .Produces<uint>();
 
         return app;
     }
@@ -42,7 +43,7 @@ internal static class RulesCrud
             var dtos = rules.Select(x => new RegexRuleDto(x)).ToArray();
 
             return Results.Ok(dtos);
-        });
+        }).Produces<RegexRuleDto[]>();
 
         return app;
     }

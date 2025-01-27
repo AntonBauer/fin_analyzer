@@ -1,4 +1,5 @@
 using FinAnalyser.DataAccess.Services.Transactions;
+using FinAnalyzer.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinAnalyzer.Api.UseCases;
@@ -24,7 +25,8 @@ internal static class AssignCategory
                    {
                        var transaction = await transactionsService.AssignCategory(accountId, transactionId, categoryId, cancellationToken);
                        return Results.Ok(transaction);
-                   });
+                   })
+           .Produces<Transaction>();
 
         return app;
     }
@@ -39,7 +41,8 @@ internal static class AssignCategory
                    {
                        var transaction = await transactionsService.RemoveCategory(accountId, transactionId, cancellationToken);
                        return Results.Ok(transaction);
-                   });
+                   })
+           .Produces<Transaction>();
 
         return app;
     }

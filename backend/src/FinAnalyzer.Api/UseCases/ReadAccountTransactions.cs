@@ -1,3 +1,4 @@
+using System.Transactions;
 using FinAnalyser.DataAccess.Services.Transactions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +16,8 @@ internal static class ReadAccountTransactions
         {
             var transactions = await transactionsService.GetTransactions(accountId, from, to, cancellationToken);
             return Results.Ok(transactions);
-        });
+        })
+        .Produces<Transaction[]>();
 
         return app;
     }

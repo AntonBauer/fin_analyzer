@@ -22,7 +22,8 @@ internal static class UploadData
 
             return Results.Created($"/accounts/{accountId}", accountId);
         })
-        .DisableAntiforgery();
+        .DisableAntiforgery()
+        .Produces<uint>();
 
         return app;
     }

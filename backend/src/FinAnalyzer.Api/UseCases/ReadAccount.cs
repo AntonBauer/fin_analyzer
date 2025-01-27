@@ -1,4 +1,5 @@
 using FinAnalyser.DataAccess.Services.Accounts;
+using FinAnalyzer.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinAnalyzer.Api.UseCases;
@@ -13,7 +14,8 @@ internal static class ReadAccount
         {
             var account = await accountService.ReadAccount(accountId, cancellationToken);
             return Results.Ok(account);
-        });
+        })
+        .Produces<Account>();
 
         return app;
     }

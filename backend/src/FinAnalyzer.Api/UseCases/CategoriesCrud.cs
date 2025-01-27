@@ -1,5 +1,6 @@
 using FinAnalyser.DataAccess.Services.Categories;
 using FinAnalyzer.Api.Requests;
+using FinAnalyzer.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinAnalyzer.Api.UseCases;
@@ -24,7 +25,9 @@ internal static class CategoriesCrud
         {
             var categoryId = await categoryService.Create(dto.Name, cancellationToken);
             return Results.Created($"/categories/{categoryId}", categoryId);
-        }).DisableAntiforgery();
+        })
+        .Produces<uint>()
+        .DisableAntiforgery();
 
         return app;
     }
@@ -36,7 +39,8 @@ internal static class CategoriesCrud
         {
             var categories = await categoryService.ReadAll(cancellationToken);
             return Results.Ok(categories);
-        });
+        })
+        .Produces<Category[]>();
 
         return app;
     }

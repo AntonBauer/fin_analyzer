@@ -3,7 +3,7 @@ import { Transaction } from "./transaction.model";
 
 
 export interface Account {
-    id: string; // Guid is represented as a string in TypeScript
+    id: string;
     info: AccountInfo;
     transactions: Transaction[];
 }

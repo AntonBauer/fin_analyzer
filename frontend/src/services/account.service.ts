@@ -11,6 +11,10 @@ export class AccountService {
     readonly #environmentService = inject(EnvironmentService);
     readonly #http = inject(HttpClient);
 
+    getAccounts(): Observable<Account[]> {
+        return this.#http.get<Account[]>(`${this.#environmentService.getEnvironment().apiUrl}/accounts`);
+    }
+
     getAccount(accountId: string): Observable<Account> {
         return this.#http.get<Account>(`${this.#environmentService.getEnvironment().apiUrl}/accounts/${accountId}`);
     }

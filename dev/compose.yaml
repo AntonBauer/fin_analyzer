@@ -1,12 +1,10 @@
 services:
   db:
-    image: postgres
+    image: postgres:15
     restart: always
-    user: postgres
     volumes:
       - fin-analyze-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=finanalyzer
       - POSTGRES_PASSWORD=1pass!
     expose:
       - 5432

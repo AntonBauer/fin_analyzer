@@ -27,9 +27,8 @@ internal static class RulesCrud
                                                   dto.Expression,
                                                   dto.SuggestedCategoryId,
                                                   cancellationToken);
-            return Results.Created($"/rules/{ruleId}", ruleId);
-        }).DisableAntiforgery()
-          .Produces<uint>();
+            return TypedResults.Created($"/rules/{ruleId}", ruleId);
+        }).DisableAntiforgery();
 
         return app;
     }
@@ -42,8 +41,8 @@ internal static class RulesCrud
             var rules = await rulesService.ReadAll(cancellationToken);
             var dtos = rules.Select(x => new RegexRuleDto(x)).ToArray();
 
-            return Results.Ok(dtos);
-        }).Produces<RegexRuleDto[]>();
+            return TypedResults.Ok(dtos);
+        });
 
         return app;
     }
@@ -57,7 +56,7 @@ internal static class RulesCrud
                                                                     CancellationToken cancellationToken) =>
         {
             await rulesService.Delete(ruleId, cancellationToken);
-            return Results.Ok();
+            return TypedResults.Ok();
         });
 
         return app;

@@ -2,7 +2,7 @@
 @let accountsLoading = accounts$.isLoading();
 
 @if(accountsLoading){
-
+<div>Loading...</div>
 }
 @else {
 <table mat-table [dataSource]="accounts">

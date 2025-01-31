@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AccountService } from '../../../services';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { MatTableModule } from '@angular/material/table';
@@ -13,7 +13,8 @@ type AccountListColumns = keyof Account | keyof AccountInfo;
     RouterLink
   ],
   templateUrl: './accounts-list.component.html',
-  styleUrl: './accounts-list.component.scss'
+  styleUrl: './accounts-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountsListComponent {
   readonly #accountService = inject(AccountService);

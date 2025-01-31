@@ -23,6 +23,8 @@ services:
       context: ../backend
       dockerfile: Dockerfile
       target: final
+    environment:
+      - ASPNETCORE_ConnectionStrings__FinAnalyzer=Host=db;Port=5432;Database=fin_analyzer;User Id=postgres;Password=postgres;
     ports:
       - 80:8080
 

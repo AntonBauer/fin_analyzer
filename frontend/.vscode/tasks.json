@@ -3,6 +3,16 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Start backend container",
+      "type": "shell",
+      "command": "docker compose -f ../dev/compose.yaml up -d --build backend",
+    },
+    {
+      "label": "Stop backend container",
+      "type": "shell",
+      "command": "docker compose -f ../dev/compose.yaml down",
+    },
+    {
       "type": "npm",
       "script": "start",
       "isBackground": true,
@@ -18,7 +28,10 @@
             "regexp": "bundle generation complete"
           }
         }
-      }
-    }
+      },
+      "dependsOn": [
+        "Start backend container"
+      ]
+    },
   ]
 }

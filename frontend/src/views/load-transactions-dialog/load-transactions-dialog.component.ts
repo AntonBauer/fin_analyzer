@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, linkedSignal, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,6 +10,11 @@ import { MatIconModule } from '@angular/material/icon';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoadTransactionsDialogComponent {
+  protected file = signal<File | undefined>(undefined);
+  protected fileName = linkedSignal(() => this.file()?.name || 'No file selected');
+
   protected onFileSelected($event: Event): void {
+    const file = ($event.target as HTMLInputElement)?.files?.[0] as File;
+    this.file.set(file);
   }
 }

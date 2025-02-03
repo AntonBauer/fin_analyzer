@@ -4,7 +4,7 @@ import { AccountService } from '../../services';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { LoadTransactionsDialogComponent } from '../load-transactions-dialog/load-transactions-dialog.component';
-import { filter, switchMap } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'fan-root',
@@ -26,6 +26,7 @@ export class AppComponent {
     dialogRef.afterClosed()
       .pipe(
         filter(file => file !== undefined),
+        tap(f => console.log(f)),
         switchMap(file => this.#accountService.uploadTransactionsFile(file))
       ).subscribe();
   }

@@ -1,1 +1,3 @@
-<p>account-details works!</p>
+@if(account$.hasValue()){
+<p>{{account$.value()?.info?.name || 'nope'}}</p>
+}

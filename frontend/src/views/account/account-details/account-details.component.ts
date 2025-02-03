@@ -11,7 +11,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 export class AccountDetailsComponent {
   readonly #accountService = inject(AccountService)
 
-  accountId = input.required<string>();
+  accountId = input<string>();
 
   account$ = rxResource({
     request: () => this.accountId(),

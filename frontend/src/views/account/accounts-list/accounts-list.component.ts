@@ -21,7 +21,7 @@ export class AccountsListComponent {
 
   protected readonly displayedColumns: AccountListColumns[] = ['name', 'accountHolder'];
 
-  protected readonly accounts$ = rxResource({
+  protected readonly accountsRes = rxResource({
     loader: () => this.#accountService.getAccounts()
   })
 }

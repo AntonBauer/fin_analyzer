@@ -1,3 +1,34 @@
-@if(account$.hasValue()){
-<p>{{account$.value()?.info?.name || 'nope'}}</p>
+@if(accountRes.isLoading()) {
+    <div>Loading...</div>
+} @else if (accountRes.value() !== undefined) {
+    @let account = accountRes.value()!;
+
+    <div>{{account.info.name}}</div>
+    <div>{{account.info.accountHolder}}</div>
+    <div>{{account.info.iban}}</div>
+
+    <table mat-table [dataSource]="account.transactions">
+        <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef> Category </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.category?.name ?? 'Unknown'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="purpose">
+            <th mat-header-cell *matHeaderCellDef> Purpose </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.rawTransaction.purpose}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef> Amount </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.rawTransaction.amount.amount}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="valueDate">
+            <th mat-header-cell *matHeaderCellDef> Booked at </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.rawTransaction.valueDate}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 }

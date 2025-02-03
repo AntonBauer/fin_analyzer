@@ -1,15 +1,14 @@
-@let accounts = accounts$.value() ?? [];
-@let accountsLoading = accounts$.isLoading();
-
-@if(accountsLoading){
+@if(accountsRes.isLoading()){
 <div>Loading...</div>
 }
 @else {
+@let accounts = accountsRes.value() ?? [];
+
 <table mat-table [dataSource]="accounts">
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name </th>
         <td mat-cell *matCellDef="let account">
-            <a routerLink="/accounts/{{account.id}}">
+            <a [routerLink]="[account.id]">
                 {{account.info.name}}
             </a>
         </td>
